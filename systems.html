@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Systems — PlayStation Legacy</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+--navy: #003087;
+--ps-blue: #00439C;
+--electric: #0070D1;
+--near-black: #0A0A0F;
+--mid-dark: #12121A;
+--surface: #1A1A2E;
+--grey: #A8A8A8;
+--off-white: #F0F0F5;
+--white: #FFFFFF;
+
+/* Per-gen accent colors */
+--ps1-accent: #C8C8CC;
+--ps2-accent: #1A6BBE;
+--ps3-accent: #0A7AFF;
+--ps4-accent: #003BBA;
+--ps5-accent: #FFFFFF;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+background: var(--near-black);
+color: var(--off-white);
+font-family: 'Inter', sans-serif;
+}
+
+/* ── NAV ── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1rem 3rem;
+background: rgba(10,10,15,0.92);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid rgba(0,112,209,0.2);
+}
+
+.nav-logo {
+font-family: 'Orbitron', sans-serif;
+font-weight: 900;
+font-size: 1.1rem;
+color: var(--white);
+letter-spacing: 0.1em;
+text-decoration: none;
+}
+
+.nav-logo span { color: var(--electric); }
+
+nav ul { list-style: none; display: flex; gap: 2.5rem; }
+nav ul a {
+text-decoration: none;
+color: var(--grey);
+font-size: 0.85rem;
+font-weight: 500;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+transition: color 0.2s;
+}
+nav ul a:hover, nav ul a.active { color: var(--electric); }
+
+/* ── PAGE HERO ── */
+.page-hero {
+padding: 9rem 3rem 5rem;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+
+.page-hero::before {
+content: '';
+position: absolute;
+inset: 0;
+background-image:
+linear-gradient(rgba(0,112,209,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,112,209,0.04) 1px, transparent 1px);
+background-size: 60px 60px;
+}
+
+.page-hero::after {
+content: '';
+position: absolute;
+bottom: 0; left: 0; right: 0;
+height: 120px;
+background: linear-gradient(to bottom, transparent, var(--near-black));
+}
+
+.page-eyebrow {
+position: relative; z-index: 2;
+font-family: 'Orbitron', sans-serif;
+font-size: 0.65rem;
+letter-spacing: 0.35em;
+color: var(--electric);
+margin-bottom: 1rem;
+text-transform: uppercase;
+}
+
+.page-title {
+position: relative; z-index: 2;
+font-family: 'Orbitron', sans-serif;
+font-size: clamp(2rem, 5vw, 4rem);
+font-weight: 900;
+color: var(--white);
+margin-bottom: 1rem;
+}
+
+.page-sub {
+position: relative; z-index: 2;
+color: var(--grey);
+font-size: 1rem;
+max-width: 520px;
+margin: 0 auto;
+line-height: 1.7;
+}
+
+/* ── STICKY GEN NAV ── */
+.gen-nav {
+position: sticky;
+top: 60px;
+z-index: 90;
+background: rgba(10,10,15,0.95);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid rgba(0,112,209,0.15);
+display: flex;
+justify-content: center;
+gap: 0;
+overflow-x: auto;
+}
+
+.gen-nav a {
+padding: 1rem 1.8rem;
+font-family: 'Orbitron', sans-serif;
+font-size: 0.68rem;
+font-weight: 700;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+text-decoration: none;
+color: var(--grey);
+border-bottom: 2px solid transparent;
+transition: color 0.2s, border-color 0.2s;
+white-space: nowrap;
+}
+
+.gen-nav a:hover { color: var(--white); border-color: var(--electric); }
+
+/* ── CONSOLE SECTION ── */
+.console-section {
+padding: 6rem 3rem;
+position: relative;
+}
+
+.console-section:nth-child(even) {
+background: var(--mid-dark);
+}
+
+.console-inner {
+max-width: 1200px;
+margin: 0 auto;
+}
+
+/* Era badge */
+.era-badge {
+display: inline-flex;
+align-items: center;
+gap: 0.6rem;
+margin-bottom: 2.5rem;
+padding: 0.5rem 1.2rem;
+background: rgba(0,112,209,0.08);
+border: 1px solid rgba(0,112,209,0.2);
+border-radius: 50px;
+}
+
+.era-dot {
+width: 8px; height: 8px;
+border-radius: 50%;
+background: var(--electric);
+box-shadow: 0 0 8px var(--electric);
+}
+
+.era-text {
+font-family: 'Orbitron', sans-serif;
+font-size: 0.62rem;
+font-weight: 700;
+letter-spacing: 0.2em;
+color: var(--electric);
+text-transform: uppercase;
+}
+
+/* Main layout: two columns */
+.console-layout {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 4rem;
+align-items: start;
+}
+
+.console-layout.reverse { direction: rtl; }
+.console-layout.reverse > * { direction: ltr; }
+
+.console-info h2 {
+font-family: 'Orbitron', sans-serif;
+font-size: clamp(1.8rem, 3vw, 3rem);
+font-weight: 900;
+color: var(--white);
+line-height: 1.1;
+margin-bottom: 0.6rem;
+}
+
+.console-tagline {
+font-size: 0.85rem;
+color: var(--electric);
+font-weight: 500;
+letter-spacing: 0.05em;
+margin-bottom: 1.5rem;
+}
+
+.console-description {
+color: var(--grey);
+font-size: 0.95rem;
+line-height: 1.8;
+margin-bottom: 2rem;
+}
+
+/* Spec table */
+.spec-table {
+width: 100%;
+border-collapse: collapse;
+margin-bottom: 2rem;
+}
+
+.spec-table tr {
+border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.spec-table td {
+padding: 0.75rem 0;
+font-size: 0.85rem;
+}
+
+.spec-label {
+color: var(--grey);
+font-weight: 500;
+width: 38%;
+letter-spacing: 0.03em;
+}
+
+.spec-value {
+color: var(--white);
+font-weight: 400;
+}
+
+/* Console visual panel */
+.console-visual {
+background: var(--surface);
+border: 1px solid rgba(0,112,209,0.1);
+border-radius: 16px;
+padding: 2.5rem;
+display: flex;
+flex-direction: column;
+gap: 2rem;
+}
+
+.console-display {
+aspect-ratio: 4/3;
+border-radius: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 5rem;
+position: relative;
+overflow: hidden;
+}
+
+/* Per-gen visual backgrounds */
+.ps1-bg { background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 50%, #1a1a1a 100%); }
+.ps2-bg { background: linear-gradient(135deg, #0a0a1a 0%, #001040 50%, #000820 100%); }
+.ps3-bg { background: linear-gradient(135deg, #0a0520 0%, #1a0040 50%, #000830 100%); }
+.ps4-bg { background: linear-gradient(135deg, #050510 0%, #000030 50%, #05051A 100%); }
+.ps5-bg { background: linear-gradient(135deg, #111118 0%, #1a1a2a 50%, #0a0a12 100%); }
+
+.console-display .emoji-big {
+font-size: 6rem;
+filter: drop-shadow(0 0 20px rgba(0,112,209,0.5));
+animation: floatBob 3s ease-in-out infinite;
+}
+
+@keyframes floatBob {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+
+/* Scanline overlay for PS1 retro feel */
+.scanlines::after {
+content: '';
+position: absolute;
+inset: 0;
+background: repeating-linear-gradient(
+0deg,
+transparent,
+transparent 2px,
+rgba(0,0,0,0.12) 2px,
+rgba(0,0,0,0.12) 4px
+);
+pointer-events: none;
+border-radius: 10px;
+}
+
+/* Controller section */
+.controller-block {
+border-top: 1px solid rgba(255,255,255,0.06);
+padding-top: 1.5rem;
+}
+
+.controller-label {
+font-family: 'Orbitron', sans-serif;
+font-size: 0.6rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(--electric);
+margin-bottom: 1rem;
+}
+
+.controller-name {
+font-family: 'Orbitron', sans-serif;
+font-size: 1rem;
+font-weight: 700;
+color: var(--white);
+margin-bottom: 0.6rem;
+}
+
+.controller-features {
+display: flex;
+flex-wrap: wrap;
+gap: 0.4rem;
+}
+
+.feature-chip {
+padding: 0.3rem 0.7rem;
+background: rgba(0,112,209,0.12);
+border: 1px solid rgba(0,112,209,0.25);
+border-radius: 50px;
+font-size: 0.7rem;
+color: var(--off-white);
+}
+
+/* Sales badge */
+.sales-highlight {
+display: flex;
+align-items: center;
+gap: 1rem;
+padding: 1.2rem 1.5rem;
+background: rgba(0,112,209,0.06);
+border-left: 3px solid var(--electric);
+border-radius: 0 8px 8px 0;
+margin-top: 1rem;
+}
+
+.sales-number {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.8rem;
+font-weight: 900;
+color: var(--electric);
+white-space: nowrap;
+}
+
+.sales-desc {
+font-size: 0.82rem;
+color: var(--grey);
+line-height: 1.5;
+}
+
+/* Section divider */
+.section-divide {
+max-width: 1200px;
+margin: 0 auto;
+height: 1px;
+background: linear-gradient(90deg, transparent, rgba(0,112,209,0.3), transparent);
+}
+
+/* ── FOOTER ── */
+footer {
+background: var(--mid-dark);
+border-top: 1px solid rgba(255,255,255,0.05);
+padding: 3rem;
+text-align: center;
+}
+
+.footer-logo {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.3rem;
+font-weight: 900;
+color: var(--white);
+margin-bottom: 0.75rem;
+}
+
+.footer-logo span { color: var(--electric); }
+
+.footer-nav {
+display: flex;
+justify-content: center;
+gap: 2rem;
+list-style: none;
+margin-bottom: 2rem;
+}
+
+.footer-nav a {
+color: var(--grey);
+text-decoration: none;
+font-size: 0.82rem;
+transition: color 0.2s;
+}
+
+.footer-nav a:hover { color: var(--electric); }
+
+.footer-copy { font-size: 0.75rem; color: rgba(168,168,168,0.5); }
+
+@media (max-width: 768px) {
+.console-layout { grid-template-columns: 1fr; gap: 2rem; }
+.console-layout.reverse { direction: ltr; }
+nav ul { gap: 1.2rem; }
+nav { padding: 1rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+<a href="index.html" class="nav-logo">PLAY<span>STATION</span> LEGACY</a>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="systems.html" class="active">Systems</a></li>
+<li><a href="about.html">Creator</a></li>
+
+</ul>
+</nav>
+
+<!-- Page Hero -->
+<div class="page-hero">
+<p class="page-eyebrow">Hardware Deep Dive</p>
+<h1 class="page-title">All PlayStation Systems</h1>
+<p class="page-sub">Every console, every spec, every controller — from 1994's original grey box to the futuristic white monolith of today.</p>
+</div>
+
+<!-- Sticky Gen Nav -->
+<div class="gen-nav">
+<a href="#ps1">PlayStation 1</a>
+<a href="#ps2">PlayStation 2</a>
+<a href="#ps3">PlayStation 3</a>
+<a href="#ps4">PlayStation 4</a>
+<a href="#ps5">PlayStation 5</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PS1 -->
+<!-- ═══════════════════════════════════════════ -->
+ <section class="console-section" id="ps1">
+<div class="console-inner">
+<div class="era-badge">
+<div class="era-dot" style="background: var(--ps1-accent); box-shadow: 0 0 8px var(--ps1-accent);"></div>
+<span class="era-text">First Generation · 1994</span>
+</div>
+<div class="console-layout">
+<div class="console-info">
+<h2>Play<br>Station 1</h2>
+<p class="console-tagline">The one that started it all.</p>
+<p class="console-description">
+Born from a failed Nintendo partnership, the PlayStation launched on December 3, 1994 in Japan and became an immediate phenomenon. Sony's first console bet on CD-ROM technology when cartridges still ruled, opening the door to longer games, cinematic cutscenes, and a new breed of developers. It democratized 3D gaming and introduced the world to franchises like Crash Bandicoot, Metal Gear Solid, and Final Fantasy VII.
+</p>
+<table class="spec-table">
+<tr><td class="spec-label">CPU</td><td class="spec-value">MIPS R3000A @ 33.8 MHz</td></tr>
+<tr><td class="spec-label">GPU</td><td class="spec-value">Sony GPU @ 33.8 MHz</td></tr>
+<tr><td class="spec-label">RAM</td><td class="spec-value">2 MB Main · 1 MB VRAM</td></tr>
+<tr><td class="spec-label">Storage</td><td class="spec-value">Memory Card (1 MB)</td></tr>
+<tr><td class="spec-label">Media</td><td class="spec-value">CD-ROM (single speed)</td></tr>
+<tr><td class="spec-label">Resolution</td><td class="spec-value">Up to 640 × 480</td></tr>
+<tr><td class="spec-label">Colors</td><td class="spec-value">16.7 million</td></tr>
+<tr><td class="spec-label">Polygons</td><td class="spec-value">~360,000 / sec</td></tr>
+<tr><td class="spec-label">Release Price</td><td class="spec-value">$299 USD</td></tr>
+</table>
+<div class="sales-highlight">
+<div class="sales-number">102.5M</div>
+<div class="sales-desc">Units sold worldwide, making it the best-selling console of its era and one of the most important in history.</div>
+</div>
+</div>
+<div class="console-visual">
+<div class="console-display ps1-bg scanlines">
+<img src="images/ps1.jpg" alt="PlayStation 1 Console" style="max-width: 100%; max-height: 100%;">
+</div>
+<div class="controller-block">
+<p class="controller-label">Original Controller</p>
+<p class="controller-name">PlayStation Controller / DualShock</p>
+<p style="font-size: 0.82rem; color: var(--grey); line-height: 1.6; margin-bottom: 1rem;">
+Launched with a simple D-pad + button controller, then revolutionary in 1997 when Sony introduced the <strong style="color: var(--white);">DualShock</strong> — the first mass-market controller with dual analog sticks and vibration feedback motors. The iconic △ ○ ✕ □ face buttons were born here.
+</p>
+<div class="controller-features">
+<span class="feature-chip">△ ○ ✕ □ Face Buttons</span>
+<span class="feature-chip">Dual Analog Sticks</span>
+<span class="feature-chip">Rumble / Vibration</span>
+<span class="feature-chip">L1 L2 R1 R2 Triggers</span>
+<span class="feature-chip">Select + Start</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="console-section" style="padding: 0 3rem;"><div class="section-divide"></div></div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PS2 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="console-section" id="ps2" style="background: var(--mid-dark);">
+<div class="console-inner">
+<div class="era-badge" style="border-color: rgba(26,107,190,0.3); background: rgba(26,107,190,0.08);">
+<div class="era-dot" style="background: var(--ps2-accent); box-shadow: 0 0 8px var(--ps2-accent);"></div>
+<span class="era-text" style="color: var(--ps2-accent);">Second Generation · 2000</span>
+</div>
+<div class="console-layout reverse">
+<div class="console-info">
+<h2>Play<br>Station 2</h2>
+<p class="console-tagline">The greatest console ever made.</p>
+<p class="console-description">
+Released on March 4, 2000, the PS2 became the best-selling video game console of all time — a record that stands to this day. Powered by the Emotion Engine and capable of playing DVDs, it was as much a home entertainment device as a gaming machine. With a library of over 4,000 titles spanning 12 years, it offered unforgettable experiences from Shadow of the Colossus to Grand Theft Auto: San Andreas.
+</p>
+<table class="spec-table">
+<tr><td class="spec-label">CPU</td><td class="spec-value">Emotion Engine @ 294 MHz</td></tr>
+<tr><td class="spec-label">GPU</td><td class="spec-value">Graphics Synthesizer @ 147 MHz</td></tr>
+<tr><td class="spec-label">RAM</td><td class="spec-value">32 MB RDRAM · 4 MB VRAM</td></tr>
+<tr><td class="spec-label">Storage</td><td class="spec-value">8 MB Memory Card</td></tr>
+<tr><td class="spec-label">Media</td><td class="spec-value">DVD-ROM / CD-ROM</td></tr>
+<tr><td class="spec-label">Resolution</td><td class="spec-value">Up to 1080i</td></tr>
+<tr><td class="spec-label">Polygons</td><td class="spec-value">~75 million / sec</td></tr>
+<tr><td class="spec-label">Network</td><td class="spec-value">Network Adapter (optional)</td></tr>
+<tr><td class="spec-label">Release Price</td><td class="spec-value">$299 USD</td></tr>
+</table>
+<div class="sales-highlight" style="border-color: var(--ps2-accent);">
+<div class="sales-number" style="color: var(--ps2-accent);">155M</div>
+<div class="sales-desc">The best-selling home console ever. Manufactured until 2013 — a 13-year production run.</div>
+</div>
+</div>
+<div class="console-visual">
+<div class="console-display ps2-bg">
+<img src="images/ps2.jpg" alt="PlayStation 2 Console" style="max-width: 100%; max-height: 100%;">
+</div>
+<div class="controller-block">
+<p class="controller-label">Controller</p>
+<p class="controller-name">DualShock 2</p>
+<p style="font-size: 0.82rem; color: var(--grey); line-height: 1.6; margin-bottom: 1rem;">
+An evolution of the DualShock, the <strong style="color: var(--white);">DualShock 2</strong> introduced pressure-sensitive buttons — every face button and trigger could detect how hard you pressed them. The sleek, dark design became one of the most copied controller layouts in gaming history.
+</p>
+<div class="controller-features">
+<span class="feature-chip">Pressure-Sensitive Buttons</span>
+<span class="feature-chip">Dual Analog Sticks</span>
+<span class="feature-chip">Enhanced Rumble</span>
+<span class="feature-chip">Analog Mode Toggle</span>
+<span class="feature-chip">8 MB Memory Slot</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PS3 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="console-section" id="ps3">
+<div class="console-inner">
+<div class="era-badge" style="border-color: rgba(10,122,255,0.3); background: rgba(10,122,255,0.08);">
+<div class="era-dot" style="background: var(--ps3-accent); box-shadow: 0 0 8px var(--ps3-accent);"></div>
+<span class="era-text" style="color: var(--ps3-accent);">Third Generation · 2006</span>
+</div>
+<div class="console-layout">
+<div class="console-info">
+<h2>Play<br>Station 3</h2>
+<p class="console-tagline">The Cell processor heard 'round the world.</p>
+<p class="console-description">
+November 11, 2006. The PS3 launched with breathtaking ambition — a Cell Broadband Engine processor, built-in Blu-ray drive (winning the format war against HD-DVD), and free online play via PlayStation Network. It was a challenging machine to develop for, but its eight SPE processing cores delivered landmark exclusives: Uncharted 2, The Last of Us, and God of War III pushed the hardware to its absolute limits.
+</p>
+<table class="spec-table">
+<tr><td class="spec-label">CPU</td><td class="spec-value">Cell Broadband Engine @ 3.2 GHz (1 PPE + 7 SPEs)</td></tr>
+<tr><td class="spec-label">GPU</td><td class="spec-value">NVIDIA RSX "Reality Synthesizer" @ 550 MHz</td></tr>
+<tr><td class="spec-label">RAM</td><td class="spec-value">256 MB XDR · 256 MB GDDR3</td></tr>
+<tr><td class="spec-label">Storage</td><td class="spec-value">20–500 GB HDD (removable)</td></tr>
+<tr><td class="spec-label">Media</td><td class="spec-value">Blu-ray / DVD / CD</td></tr>
+<tr><td class="spec-label">Resolution</td><td class="spec-value">Up to 1080p</td></tr>
+<tr><td class="spec-label">Online</td><td class="spec-value">PlayStation Network (free)</td></tr>
+<tr><td class="spec-label">Connectivity</td><td class="spec-value">Wi-Fi, Bluetooth, HDMI</td></tr>
+<tr><td class="spec-label">Release Price</td><td class="spec-value">$499 / $599 USD</td></tr>
+</table>
+<div class="sales-highlight" style="border-color: var(--ps3-accent);">
+<div class="sales-number" style="color: var(--ps3-accent);">87.4M</div>
+<div class="sales-desc">Units sold globally. The PS3 also won the Blu-ray format war and established PlayStation Network.</div>
+</div>
+</div>
+<div class="console-visual">
+<div class="console-display ps3-bg">
+<img src="images/ps3.webp" alt="PlayStation 3 Console" style="max-width: 100%; max-height: 100%;">
+</div>
+<div class="controller-block">
+<p class="controller-label">Controller</p>
+<p class="controller-name">DualShock 3 / SIXAXIS</p>
+<p style="font-size: 0.82rem; color: var(--grey); line-height: 1.6; margin-bottom: 1rem;">
+The PS3 launched with the <strong style="color: var(--white);">SIXAXIS</strong> — the first PlayStation controller with motion sensing (gyroscope + accelerometer). Feedback from fans led to the return of rumble in the <strong style="color: var(--white);">DualShock 3</strong>. Both controllers connected wirelessly via Bluetooth for the first time.
+</p>
+<div class="controller-features">
+<span class="feature-chip">Six-Axis Motion Control</span>
+<span class="feature-chip">Wireless Bluetooth</span>
+<span class="feature-chip">USB Charging</span>
+<span class="feature-chip">Rumble (DualShock 3)</span>
+<span class="feature-chip">PS Button</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PS4 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="console-section" id="ps4" style="background: var(--mid-dark);">
+<div class="console-inner">
+<div class="era-badge" style="border-color: rgba(0,59,186,0.3); background: rgba(0,59,186,0.08);">
+<div class="era-dot" style="background: var(--ps4-accent); box-shadow: 0 0 8px var(--ps4-accent);"></div>
+<span class="era-text" style="color: #4080FF;">Fourth Generation · 2013</span>
+</div>
+<div class="console-layout reverse">
+<div class="console-info">
+<h2>Play<br>Station 4</h2>
+<p class="console-tagline">For the players. For the era.</p>
+<p class="console-description">
+November 15, 2013. Sony announced the PS4 with a developer-friendly x86 architecture, unprecedented social features, and a battle cry: "For the Players." It launched at $399 — $100 less than Xbox One — and never looked back. The PS4 sold over 117 million units, powered by Bloodborne, Horizon Zero Dawn, Spider-Man, and The Last of Us Part II. It also introduced Remote Play, Streaming, and the Share button that changed how we experience games together.
+</p>
+<table class="spec-table">
+<tr><td class="spec-label">CPU</td><td class="spec-value">AMD Jaguar x86-64 @ 1.6 GHz (8 cores)</td></tr>
+<tr><td class="spec-label">GPU</td><td class="spec-value">AMD GCN @ 800 MHz · 1.84 TFLOPS</td></tr>
+<tr><td class="spec-label">RAM</td><td class="spec-value">8 GB GDDR5 (unified)</td></tr>
+<tr><td class="spec-label">Storage</td><td class="spec-value">500 GB / 1 TB HDD</td></tr>
+<tr><td class="spec-label">Media</td><td class="spec-value">Blu-ray / DVD</td></tr>
+<tr><td class="spec-label">Resolution</td><td class="spec-value">Up to 1080p (PS4 Pro: 4K)</td></tr>
+<tr><td class="spec-label">Online</td><td class="spec-value">PlayStation Network (PS Plus)</td></tr>
+<tr><td class="spec-label">Connectivity</td><td class="spec-value">Wi-Fi, Bluetooth 2.1, HDMI 1.4</td></tr>
+<tr><td class="spec-label">Release Price</td><td class="spec-value">$399 USD</td></tr>
+</table>
+<div class="sales-highlight" style="border-color: #4080FF;">
+<div class="sales-number" style="color: #4080FF;">117.2M</div>
+<div class="sales-desc">Second best-selling PlayStation ever. The PS4 Pro (2016) added 4K gaming and HDR support.</div>
+</div>
+</div>
+<div class="console-visual">
+<div class="console-display ps4-bg">
+<img src ="images/ps4.png" alt="PlayStation 4 Console" style="max-width: 100%; max-height: 100%;">
+</div>
+<div class="controller-block">
+<p class="controller-label">Controller</p>
+<p class="controller-name">DualShock 4</p>
+<p style="font-size: 0.82rem; color: var(--grey); line-height: 1.6; margin-bottom: 1rem;">
+The <strong style="color: var(--white);">DualShock 4</strong> was the most significant controller redesign since the original. A capacitive touchpad in the center, a light bar for positional tracking, a built-in speaker, and a Share button that let players capture and broadcast gameplay. The improved analog sticks and trigger feel set a new standard.
+</p>
+<div class="controller-features">
+<span class="feature-chip">Touchpad</span>
+<span class="feature-chip">Light Bar (RGB)</span>
+<span class="feature-chip">Built-in Speaker</span>
+<span class="feature-chip">Share Button</span>
+<span class="feature-chip">Motion Sensor</span>
+<span class="feature-chip">Headphone Jack</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PS5 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="console-section" id="ps5">
+<div class="console-inner">
+<div class="era-badge" style="border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04);">
+<div class="era-dot" style="background: #FFFFFF; box-shadow: 0 0 8px #FFFFFF;"></div>
+<span class="era-text" style="color: #FFFFFF;">Fifth Generation · 2020</span>
+</div>
+<div class="console-layout">
+<div class="console-info">
+<h2>Play<br>Station 5</h2>
+<p class="console-tagline">Feel the game. Speed is everything.</p>
+<p class="console-description">
+November 12, 2020. The PlayStation 5 arrived as one of the boldest hardware designs in gaming history — a towering white-and-black monolith engineered around one revolutionary component: a custom 825 GB NVMe SSD delivering load speeds that eliminated traditional load screens forever. Paired with the DualSense controller's adaptive triggers and haptic feedback, the PS5 fundamentally changed how games feel to play, not just how they look.
+</p>
+<table class="spec-table">
+<tr><td class="spec-label">CPU</td><td class="spec-value">AMD Zen 2 @ 3.5 GHz (8 cores / 16 threads)</td></tr>
+<tr><td class="spec-label">GPU</td><td class="spec-value">AMD RDNA 2 @ 2.23 GHz · 10.28 TFLOPS</td></tr>
+<tr><td class="spec-label">RAM</td><td class="spec-value">16 GB GDDR6 (unified)</td></tr>
+<tr><td class="spec-label">Storage</td><td class="spec-value">825 GB NVMe SSD · 5.5 GB/s raw</td></tr>
+<tr><td class="spec-label">Media</td><td class="spec-value">4K UHD Blu-ray / Streaming</td></tr>
+<tr><td class="spec-label">Resolution</td><td class="spec-value">4K @ 120fps · 8K support</td></tr>
+<tr><td class="spec-label">Ray Tracing</td><td class="spec-value">Hardware-accelerated</td></tr>
+<tr><td class="spec-label">Audio</td><td class="spec-value">Tempest 3D Audio Engine</td></tr>
+<tr><td class="spec-label">Release Price</td><td class="spec-value">$499 USD (Disc) / $399 (Digital)</td></tr>
+</table>
+<div class="sales-highlight" style="border-color: #FFFFFF;">
+<div class="sales-number" style="color: #FFFFFF;">60M+</div>
+<div class="sales-desc">Units sold as of 2024. The PS5 Pro (2024) further elevated performance with enhanced ray tracing and AI upscaling.</div>
+</div>
+</div>
+<div class="console-visual">
+<div class="console-display ps5-bg">
+<img src="images/ps5.jpg" alt="PlayStation 5 Console" style="max-width: 100%; max-height: 100%;">
+</div>
+<div class="controller-block">
+<p class="controller-label">Controller</p>
+<p class="controller-name">DualSense</p>
+<p style="font-size: 0.82rem; color: var(--grey); line-height: 1.6; margin-bottom: 1rem;">
+The <strong style="color: var(--white);">DualSense</strong> is the most innovative controller in PlayStation history. Adaptive triggers can simulate bowstring tension, weapon recoil, or rain resistance. Haptic feedback replaces simple rumble with precise, textured sensations — you feel rain on a beach, footsteps in snow, or the resistance of ice. A built-in microphone and Create button complete the package.
+</p>
+<div class="controller-features">
+<span class="feature-chip">Adaptive Triggers</span>
+<span class="feature-chip">Haptic Feedback</span>
+<span class="feature-chip">Built-in Microphone</span>
+<span class="feature-chip">Create Button</span>
+<span class="feature-chip">USB-C Charging</span>
+<span class="feature-chip">3D Audio</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-logo">PLAY<span>STATION</span> LEGACY</div>
+<ul class="footer-nav">
+<li><a href="index.html">Home</a></li>
+<li><a href="systems.html">Systems</a></li>
+<li><a href="about.html">About</a></li>
+</ul>
+<p class="footer-copy">Created By Shayn Coffey for TrueCoders Final Project</p>
+</footer>
+</body>
+</html>

@@ -1,2 +1,163 @@
-# PlayStationEvolution
-Final Project
+PlayStation Evolution Website: A Historical Journey Through Sony’s Gaming Consoles
+Introduction
+The purpose of this project is to develop a multi-page website that shows the evolution of
+Sony’s PlayStation gaming consoles. The website provides users with an informative and
+visually engaging experience while exploring the history of each PlayStation generation,
+beginning with the original PlayStation and continuing through the PlayStation 5.
+The gaming industry has experienced tremendous growth over the past three decades, and
+Sony’s PlayStation consoles have played a significant role in shaping modern gaming. This
+project demonstrates the web development skills learned throughout the TrueCoders
+program while providing educational content for gaming enthusiasts. By combining
+structured HTML, custom CSS styling, and responsive design principles, the website serves
+as both an informational resource and a professional portfolio project.
+Objectives
+The primary objective of this project is to design and develop a fully functional website
+using HTML and CSS. The project demonstrates an understanding of front-end web
+development concepts while creating a clean and user-friendly interface.
+
+Specific objectives include:
+• Create a multi-page website with organized navigation.
+• Demonstrate proper semantic HTML structure.
+• Apply CSS styling to create a professional appearance.
+• Develop a responsive layout that works across multiple screen sizes.
+
+• Present historical information about every PlayStation console generation.
+• Build a project suitable for inclusion in a professional portfolio.
+The successful completion of these objectives will demonstrate proficiency in HTML, CSS,
+page organization, and responsive web design.
+
+Project Description
+The PlayStation Evolution Website is an educational website designed to present the
+history and progression of Sony’s gaming consoles in an organized and visually appealing
+format. Many gaming websites contain large amounts of information that can be
+overwhelming for casual users. This project simplifies the learning experience by
+presenting concise information and organized navigation.
+The website consists of three primary pages.
+The Landing Page (Home) introduces visitors to the PlayStation brand using a themed
+background image and an introductory section describing the evolution of the consoles.
+This page serves as the starting point for visitors and encourages further exploration.
+The Systems Page contains dedicated sections for all five major PlayStation consoles:
+• PlayStation (PS1)
+• PlayStation 2
+• PlayStation 3
+• PlayStation 4
+• PlayStation 5
+Each section includes an image of the console, a brief historical overview, and information
+about its impact on gaming technology.
+The About Page gives you a brief biography about the creator and how PlayStation was
+created.
+Together, these pages create a complete informational website that demonstrates effective
+website organization and user-centered design.
+
+Technologies and Tools
+The project was developed using several technologies and software tools commonly used
+in front-end web development.
+Development technologies include:
+• HTML
+• CSS
+Development tools include:
+• Visual Studio Code
+• Microsoft Edge
+• GitHub
+• Netlify
+• Microsoft Word
+These technologies provide the structure, styling, testing, version control, and deployment
+necessary to build a modern website.
+Features
+The website includes several features that improve usability and organization.
+Core features include:
+• Multi-page navigation
+• Responsive website layout
+• PlayStation-themed background imagery
+• Dedicated sections for each PlayStation console
+• Consistent page layout
+• Navigation menu
+• Footer displayed consistently across pages
+• Organized headings and informational content
+
+Implementation Plan
+The project was completed using a structured development process.
+The first phase involved planning the website layout, selecting PlayStation as the project
+topic, gathering images, and organizing project files.
+The second phase focused on creating the HTML structure for each page, including
+navigation menus, content sections, headings, and semantic elements.
+The third phase involved styling the website using CSS. During this stage, background
+images, typography, spacing, colors, alignment, and responsive layouts were
+implemented.
+The final phase included testing, debugging, and deployment preparation. Navigation links,
+page responsiveness, image placement, and overall usability were verified before finalizing
+the project.
+Several challenges were encountered during development, including aligning the footer
+correctly, positioning background images, organizing page layouts, and ensuring consistent
+styling across multiple pages. These issues were resolved through debugging, testing, and
+revisions.
+
+User Interface Design
+The website follows a clean and consistent design that prioritizes readability and simple
+navigation.
+The landing page features a large PlayStation-themed background image with introductory
+content positioned for easy viewing. Navigation links appear at the top of every page,
+allowing users to move easily between the Home, Systems, and About pages.
+The Systems page organizes each PlayStation generation into separate content sections
+containing images and descriptive text. This structure allows users to compare console
+generations while maintaining an organized layout.
+The About page features a retro PlayStation inspired design as a tribute to the original
+creator, adding a nostalgic touch while also serving as a creative challenge that showcases
+more advanced web design skills.
+The overall design emphasizes simplicity, readability, and user accessibility while
+maintaining a professional appearance.
+
+Testing Plan
+Testing was performed throughout the development process to ensure the website
+functioned correctly.
+Testing included:
+• Verifying navigation links.
+• Confirming all images displayed correctly.
+• Testing responsive layouts using browser developer tools.
+• Reviewing HTML and CSS for syntax errors.
+• Checking consistent styling across every page.
+• Correcting layout, spacing, and alignment issues.
+Browser testing was completed using Visual Studio Code and Microsoft Edge to verify
+compatibility.
+
+Deployment
+Upon completion, the website will be deployed using Netlify. The project files will be
+uploaded to a GitHub repository and connected to Netlify for automatic deployment.
+This deployment method provides reliable web hosting, simple updates, version control
+integration, and a publicly accessible website that can be shared with potential employers
+and included in a professional portfolio.
+Expected Outcome
+The completed project will be a professional multi-page website demonstrating front-end
+web development skills using HTML and CSS.
+Success will be measured by several factors, including:
+• Functional navigation
+• Responsive layout
+• Professional design
+• Organized content
+
+• Error-free HTML and CSS
+• Successful online deployment
+
+The final product will demonstrate the technical skills acquired throughout the TrueCoders
+curriculum while serving as an educational website for users interested in the history of
+PlayStation consoles.
+
+Conclusion
+The PlayStation Evolution Website represents the successful application of front-end web
+development principles learned throughout the TrueCoders program. By combining
+semantic HTML, CSS styling, responsive layouts, and organized content, the project
+demonstrates both technical ability and creative design.
+This project not only highlights the evolution of one of the most influential gaming
+platforms in history but also serves as a valuable portfolio piece that reflects the
+knowledge and skills gained during the course. Completing this project has strengthened
+my understanding of website development and prepared me for future opportunities in web
+development.
+
+References
+Mozilla Developer Network. (n.d.). HTML: HyperText Markup
+Language. https://developer.mozilla.org/en-US/docs/Web/HTML
+Mozilla Developer Network. (n.d.). CSS: Cascading Style
+Sheets. https://developer.mozilla.org/en-US/docs/Web/CSS
+Sony Interactive Entertainment. (n.d.). PlayStation. https://www.playstation.com/
+W3Schools. (n.d.). HTML Tutorial. https://www.w3schools.com/html/
+W3Schools. (n.d.). CSS Tutorial. https://www.w3schools.com/css/
