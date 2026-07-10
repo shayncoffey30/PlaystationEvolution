@@ -1,0 +1,68 @@
+
+body {
+
+    background-color: transparent;
+    background-image: url('C:\\Users\\PC\\Downloads\\playstation background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    margin: 0;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.box{
+    background-color: rgba(0,0,0, 0.5);
+    color: white;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 30px; /*space between menu links */
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.5);
+
+}
+
+footer a {
+    color: gold;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+footer a:hover {
+    color: gold;
+}
+
+
+.text-box {
+background: rgba(0, 0, 0, 0.55); /* transparency */
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    margin: 20px auto;
+}
